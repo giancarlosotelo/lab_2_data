@@ -1,4 +1,4 @@
-from google.cloud import pubsub_v1      # pip install google-cloud-pubsub  ##to install
+from google.cloud import pubsub_v1      # pip install google-cloud-pubsub
 import glob                             # for searching for json file 
 import json
 import os 
@@ -6,17 +6,17 @@ import os
 # Search the current directory for the JSON file (including the service account key) 
 # to set the GOOGLE_APPLICATION_CREDENTIALS environment variable.
 files=glob.glob("*.json")
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=files[0];
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = files[0]
 
 # Set the project_id with your project ID
-project_id="project-f2995e59-f5d2-491f-ba8";
-topic_name = "smartMeter";   # change it for your topic name if needed
-subscription_id = "smartMeter-sub";   # change it for your topic name if needed
+project_id = "project-f2995e59-f5d2-491f-ba8"   # Replace with your actual GCP project ID
+#topic_name = "csvData"         # Topic name matching the producer
+subscription_id = "csvData-sub"# Subscription ID for the topic
 
-# create a subscriber to the subscriber for the project using the subscription_id
+# Create a subscriber to receive messages using the subscription_id
 subscriber = pubsub_v1.SubscriberClient()
 subscription_path = subscriber.subscription_path(project_id, subscription_id)
-topic_path = 'projects/{}/topics/{}'.format(project_id,topic_name);
+#topic_path = 'projects/{}/topics/{}'.format(project_id,topic_name);
 
 print(f"Listening for messages on {subscription_path}..\n")
 
